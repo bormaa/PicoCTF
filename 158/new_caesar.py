@@ -2,6 +2,7 @@ import string
 
 LOWERCASE_OFFSET = ord("a")
 ALPHABET = string.ascii_lowercase[:16]
+print(ALPHABET)
 nums=["0000","0001","0010","0011","0100","0101","0110","0111","1000","1001","1010","1011","1100","1101","1110","1111"]
 # print(ALPHABET)
 def b16_encode(plain):
@@ -34,17 +35,19 @@ def shift(c, k):
 	t2 = ord(k) - LOWERCASE_OFFSET
 	return ALPHABET[(t1 + t2) % len(ALPHABET)]
 def deshift(c, k):
-	print("---------------deshift----------------------")
-	print(c)
-	print(k)
+	# print("---------------deshift----------------------")
+	# print("enc "+str(ord(c)))
+	# print("place "+str(ord(k)))
+	# print("should be "+str(ord(a)))
+	# print(LOWERCASE_OFFSET)
 	t1 = ord(c) + LOWERCASE_OFFSET
 	t2 = ord(k) + LOWERCASE_OFFSET
-	print("---------------deshift----------------------")
+	# print("---------------deshift----------------------")
 
-	return ALPHABET[(t1 + t2) % len(ALPHABET)]
+	return ALPHABET[(t1 - t2) % len(ALPHABET)]
 
 flag = "abc"
-key = "redacted"
+key = "bedacted"
 
 b16 = b16_encode(flag)
 print(b16)
@@ -54,16 +57,20 @@ for i, c in enumerate(b16):
 	enc += shift(c, key[i % len(key)])
 print(enc)
 print("------------------------------------------")
-b16 = b16_decode(b16)
-print(b16)
-b16="hfjcig"
-enc=""
-for i, c in enumerate(b16):
-	print(key[i % len(key)])
-	print(c)
+enc="mlnklfnknljflfmhjimkmhjhmljhjomhmmjkjpmmjmjkjpjojgjmjpjojojnjojmmkmlmijimhjmmj"
+dec=""
+key = "wqeqweqweqw"
+
+for i, c in enumerate(enc):
+	# print(key[i % len(key)])
+	# print(c)
 	
 	# print(shift(c, key[i % len(key)]))
-	enc += deshift(c, key[i % len(key)])
-	break
+	dec += deshift(c, key[i % len(key)])
+	# break
+# print(dec)
+# print("------------------------------------------")
 
-print(enc)
+# print(dec)
+b16 = b16_decode(dec)
+print(b16)
